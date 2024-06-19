@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head"></head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 660px;">
+        <h3>DANH SÁCH SẢN PHẨM</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sanPham,stt : ${listSanPham.content}">
+                        <td th:text="${stt.index +1}"></td>
+                        <td th:text="${sanPham.ten}"></td>
+                        <td th:text="${sanPham.gia}"></td>
+                        <td th:text="${sanPham.soLuong}"></td>
+                        <td>
+
+                            <!--                            <form method="post" th:action="@{/ban-hang/add-hdct}">-->
+                            <!--                                <input type="hidden" name="id" th:value="${sanPham.id}">-->
+                            <!--                                <button type="button" class="btn btn-sm btn-primary">add to cart</button>-->
+                            <!--                            </form>-->
+                            <a th:href="@{/ban-hang/add-hdct(id=${sanPham.id})}" class="btn bg-primary">
+                                Add to cart
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

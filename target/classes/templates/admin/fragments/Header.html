@@ -1,0 +1,16 @@
+<header class="bg-dark d-flex justify-content-between align-items-center"
+        style="height: 60px; border-bottom: 2px solid #8aa4af;" th:fragment="header">
+    <div class="ms-5 d-flex justify-content-center">
+        <div style="width: 50px; height: 50px; border: 1px ; border-radius: 50%;">
+            <img th:src="@{/assets/images/user2-160x160.jpg}" style="max-width: 100%; max-height: 100%;"/>
+        </div>
+        <h5 class="ms-3 mt-2 text-white ">Shop Bán Hàng</h5>
+    </div>
+    <div class="me-5 d-flex justify-content-center align-item-center text-center">
+        <div>
+            <form class="ms-3 mt-2" method="post" th:action="@{/logout}">
+                <button class="btn-sm bg-danger me-4 rounded-pill">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>

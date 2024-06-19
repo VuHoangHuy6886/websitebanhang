@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head"></head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <div class="mt-3 d-flex justify-content-center">
+            <h3>Bán Hàng Tại Quầy</h3>
+        </div>
+        <!--   form và button tạo hóa đơn , Mã Hóa Đơn    -->
+        <hr>
+        <div class="mt-3 me-5 d-flex justify-content-between">
+            <!-- Danh sách hóa đơn -->
+            <div class="ms-5 d-flex justify-content-center">
+                <div class="ms-5" th:each="hd : ${listHoaDon}">
+                    <!--                <form method="post" th:action="@{/ban-hang/hien-hdct-theo-idHD}">-->
+                    <!--                    <input type="hidden" th:value="${hd.id}" name="idHoaDon">-->
+                    <!--                    <button class="btn bg-danger" th:text="${hd.ma}"></button>-->
+                    <!--                </form>-->
+                    <a th:href="@{/ban-hang/hien-hdct-theo-idHD(idHoaDon=${hd.id})}">
+                        <button class="btn bg-info rounded-pill" th:text="${hd.ma}"></button>
+                    </a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+
+                <!-- form thêm sản phẩm  -->
+                <div th:if="${idmyHD != null && listHoaDon != null}">
+                    <form method="post" th:action="@{/ban-hang/them-san-pham}">
+                        <button class="btn bg-success rounded-pill">Thêm sản phẩm</button>
+                    </form>
+                </div>
+
+
+                <!-- form tạo hóa đơn -->
+                <div class="ms-3">
+                    <form method="post" th:action="@{/ban-hang/tao-hoa-don}">
+                        <button class="btn bg-success rounded-pill">Tạo Hóa Đơn</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!--  Giỏ Hàng      -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-start">
+                    <h5 class="card-title">Giỏ hàng</h5>
+                </div>
+                <hr>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Hành động</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="hdct,stt : ${listHDCT}">
+                        <td th:text="${stt.index +1}"></td>
+                        <td th:text="${hdct.ten}"></td>
+                        <td>
+                            <a th:href="@{/ban-hang/giam(id=${hdct.id})}"
+                               class="btn btn-sm btn-secondary">-</a>
+                            <span class="mx-2" th:text="${hdct.soLuong}"></span>
+                            <a th:href="@{/ban-hang/tang(id=${hdct.id})}"
+                               class="btn btn-sm btn-secondary">+</a>
+                        </td>
+                        <td th:text="${hdct.gia}"></td>
+                        <td>
+                            <a th:href="@{/ban-hang/xoa(id=${hdct.id})}"
+                               class="btn btn-sm btn-danger">Xóa</a>
+                        </td>
+                        <td th:if="${showError != null} and (${hdct.id} == ${Idsp})">
+                            <p th:text="${showError}" style="color: red;"></p>
+                            <form method="post" th:action="@{/ban-hang/cleant-message}">
+                                <button class="btn btn-danger">xóa message</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--        Phần Thanh Toán-->
+        <div class="d-flex justify-content-end" th:if="${SumQuantity}">
+            <div class="bg-info p-3" style="border: 1px solid seagreen; width: 400px; height: 250px;">
+                <form method="post" th:action="@{/ban-hang/thanh-toan}">
+                    <div class="d-flex justify-content-start">
+                        <h5>Tổng tiền : <span class="text-danger" th:text="${tongTien}"></span></h5>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <h5>Số Lượng : <span class="text-danger" th:text="${SumQuantity}"></span> <span
+                                class="text-danger">- Sản Phẩm</span>
+                        </h5>
+                    </div>
+
+                    <div class="d-flex justify-content-start">
+                        <h5>Hình Thức Thanh Toán</h5>
+                    </div>
+                    <div>
+                        <input type="radio" name="httt" value="Chuyển Khoản" checked> Chuyển Khoản
+                        <input type="radio" name="httt" value="Tiền Mặt"> Tiền Mặt
+
+                    </div>
+                    <br>
+
+                    <button class="btn btn-danger mt-3">Thanh Toán</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

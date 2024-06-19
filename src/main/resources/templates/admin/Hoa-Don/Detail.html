@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <div class="container">
+            <div class="d-flex justify-content-start">
+                <h3>Lịch Sử Đơn Hàng </h3>
+            </div>
+            <div class="row">
+                <div th:each="history : ${BillHistory}" class="col-12 col-sm-6 col-md-3 mb-3">
+                    <div class="bg-success text-white d-flex align-items-center justify-content-center"
+                         style="height: 70px;">
+                        <div>
+                            <div th:text="${history.trangThai}"></div>
+                            <p th:text="${#dates.format(history.ngayTao, 'yyyy-MM-dd HH:mm:ss')}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-start">
+            <h3 class="mb-3">Thông Tin Đơn hàng</h3>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th>Ngày Tạo</th>
+                <th>Khách Hàng</th>
+                <th>Trạng Thái</th>
+                <th>Nhân Viên</th>
+                <th>Tổng Tiền</th>
+                <th>Loại Hóa Đơn</th>
+                <th>Hình Thức Thanh Toán</th>
+                <th>Thao Tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${#dates.format(HoaDon.ngayTao, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${HoaDon.khachHang != null ? HoaDon.khachHang.ten : 'Khách Hàng'}"></td>
+                <td>
+                    <span th:text="${HoaDon.trangThai}" class="bg-danger rounded text-white"></span>
+                </td>
+                <td th:text="${HoaDon.nhanVien != null ? HoaDon.nhanVien.ten : 'Nhân Viên'}"></td>
+                <td th:text="${HoaDon.tongTien}"></td>
+                <td th:text="${HoaDon.loaiHoaDon}"></td>
+                <td th:text="${HoaDon.hinhThucThanhToan}"></td>
+                <td class="d-flex justify-content-center" th:if="${HoaDon.trangThai != 'Đã Hoàn Thành' && HoaDon.trangThai != 'Hủy' }">
+                    <form method="post" th:action="@{/hoa-don/xac-nhan}" th:if="${HoaDon.trangThai != 'Đã Xác Nhận'}">
+                        <input type="hidden" name="id" th:value="${HoaDon.id}">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-cart-plus"></i> Xác Nhận
+                        </button>
+                    </form>
+                    <form method="post" th:action="@{/hoa-don/huy}" class="ms-3"
+                          th:if="${HoaDon.trangThai != 'Đã Xác Nhận'}">
+                        <input type="hidden" name="id" th:value="${HoaDon.id}">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-cart-plus"></i> Hủy Đơn
+                        </button>
+                    </form>
+                    <form method="post" th:action="@{/hoa-don/hoan-thanh}" class="ms-3"
+                          th:if="${HoaDon.trangThai == 'Đã Xác Nhận'}">
+                        <input type="hidden" name="id" th:value="${HoaDon.id}">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-cart-plus"></i> Hoàn Thành
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <div th:if="${HoaDon.khachHang != null}">
+                <tr class="mt-2 table-success">
+                    <td>Tên Khách Hàng</td>
+                    <td>SĐT</td>
+                    <td>Email</td>
+                    <td>Địa chỉ Nhận Hàng</td>
+                </tr>
+                <tr>
+                    <td th:text="${HoaDon.khachHang.ten}"></td>
+                    <td th:text="${HoaDon.khachHang.sdt}"></td>
+                    <td th:text="${HoaDon.khachHang.email}"></td>
+                    <td th:text="${HoaDon.khachHang.dia_chi}"></td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+        <!--        hóa đơn chi tiết  -->
+        <div class="d-flex justify-content-start">
+            <h3 class="mb-3">Danh Sách Sản phẩm</h3>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th>STT</th>
+                <th>Tên Sản Phâm</th>
+                <th>Giá</th>
+                <th>Số Lượng</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp , index : ${hoadonchitiets}">
+                <td th:text="${index.index + 1}"></td>
+                <td th:text="${temp.ten}"></td>
+                <td th:text="${temp.gia}"></td>
+                <td th:text="${temp.soLuong}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

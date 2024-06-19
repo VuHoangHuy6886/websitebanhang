@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <h2 class="mb-3">Khách Hàng</h2>
+        <div class="d-flex justify-content-end mb-3 me-5">
+            <a th:href="@{/khach-hang/add}">
+                <button class="btn bg-primary text-white rounded-pill">Thêm mới</button>
+            </a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th>STT</th>
+                <th>Tên</th>
+                <th>email</th>
+                <th>SĐT</th>
+                <th>Mật Khẩu</th>
+                <th>Địa Chỉ</th>
+                <th>Thao Tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp , index : ${KhachHangs}">
+                <td th:text="${index.index + 1}"></td>
+                <td th:text="${temp.ten}"></td>
+                <td th:text="${temp.email}"></td>
+                <td th:text="${temp.sdt}"></td>
+                <td th:text="${temp.mat_khau}"></td>
+                <td th:text="${temp.dia_chi}"></td>
+                <td class="d-flex justify-content-around">
+                    <form method="post" th:action="@{/khach-hang/sua}">
+                        <input type="hidden" name="id" th:value="${temp.id}">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fa-solid fa-cart-plus"></i> Sửa
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

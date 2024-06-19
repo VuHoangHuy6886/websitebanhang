@@ -1,0 +1,30 @@
+<aside class="bg-dark d-flex  justify-content-center text-center" style="width: 250px;height: 669px;"
+       th:fragment="menu">
+    <ul class="nav flex-column">
+        <li class="nav-item bg-white mt-5 rounded-pill">
+            <a style="color: black;" class="nav-link active" aria-current="page" th:href="@{/ban-hang/index}">Bán hàng
+                Tại Quầy</a>
+        </li>
+        <li class="nav-item bg-white mt-3 rounded-pill">
+            <a style="color: black;" class="nav-link active" aria-current="page" th:href="@{/hoa-don/index}">Quản Lý Dơn
+                Hàng</a>
+        </li>
+        <li class="nav-item dropdown bg-white mt-3 rounded-pill">
+            <a style="color: black;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               role="button"
+               aria-expanded="false">Sản Phẩm</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/danh-muc/index}">Danh Mục</a></li>
+                <li><a class="dropdown-item" th:href="@{/san-pham}">Sản Phẩm</a></li>
+            </ul>
+        </li>
+        <li class="nav-item bg-white mt-3 rounded-pill" sec:authorize="hasRole('ADMIN')">
+            <a style="color: black;" class="nav-link active" aria-current="#" th:href="@{/nhan-vien/index}">Nhân
+                Viên</a>
+        </li>
+        <li class="nav-item bg-white mt-3 rounded-pill">
+            <a style="color: black;" class="nav-link active" aria-current="#" th:href="@{/khach-hang/index}">Khách
+                Hàng</a>
+        </li>
+    </ul>
+</aside>

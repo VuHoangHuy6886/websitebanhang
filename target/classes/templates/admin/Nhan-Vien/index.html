@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <h2 class="mb-3">Quản Lý Nhân Viên</h2>
+        <div class="d-flex justify-content-end mb-3 me-5">
+            <a th:href="@{/nhan-vien/add}">
+                <button class="btn bg-primary text-white">Thêm Nhân Viên</button>
+            </a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>PassWord</th>
+                <th>Địa Chỉ</th>
+                <th>Trạng Thái</th>
+                <th>Thao Tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp , index : ${NhanViens}">
+                <td th:text="${index.index + 1}"></td>
+                <td th:text="${temp.ten}"></td>
+                <td th:text="${temp.email}"></td>
+                <td th:text="${temp.mat_khau}"></td>
+                <td th:text="${temp.dia_chi}"></td>
+                <td th:text="${temp.trangThai}"></td>
+                <td class="d-flex justify-content-around">
+                    <form method="post" action="#" th:action="@{/nhan-vien/sua}">
+                        <input type="hidden" name="id" th:value="${temp.id}">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fa-solid fa-cart-plus"></i> Sửa
+                        </button>
+                    </form>
+<!--                    <form method="post" action="#" th:action="@{/nhan-vien/xoa}">-->
+                    <!--                        <input type="hidden" name="id" th:value="${temp.id}">-->
+                    <!--                        <button type="submit" class="btn btn-danger">-->
+                    <!--                            <i class="fa-solid fa-cart-plus"></i> Xóa-->
+                    <!--                        </button>-->
+                    <!--                    </form>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

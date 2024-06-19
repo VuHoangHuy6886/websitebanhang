@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .showerrors {
+            color: red;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <div class="login-container">
+        <h2 class="text-center mb-4">My Custom Login</h2>
+        <form method="post" th:action="@{/loginSucces}">
+            <div th:if="${param.error}" class="mb-3">
+                <div class="alert alert-danger">
+                    Xin lỗi tài khoản của bạn không hợp lệ
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-danger w-100">Login</button>
+            <hr>
+<!--            <div class="text-center">-->
+<!--                <a th:href="@{/oauth2/authorization/google}" class="btn btn-primary w-100 mb-2">Login with Google</a>-->
+<!--                <a th:href="@{/oauth2/authorization/facebook}" class="btn btn-success w-100">Login with Facebook</a>-->
+<!--            </div>-->
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMF5Bcn2maT4U4OG6O3t7b7Iw1jvoRXSmXaC/IsIhb17e5Gcz5Z4x043MZ"
+        crossorigin="anonymous"></script>
+</body>
+</html>

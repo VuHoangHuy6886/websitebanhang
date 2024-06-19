@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <h2 class="mb-3">Thêm Mới Danh Mục</h2>
+        <div style="width: 500px; margin-left: 400px;">
+            <form th:action="@{/danh-muc/save}" th:object="${DanhMuc}" method="POST">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="mb-3">
+                    <label for="tenSanPham" class="form-label">Tên Sản Phẩm</label>
+                    <input type="text" th:field="*{ten}" class="form-control" id="tenSanPham"
+                           placeholder="Tên Sản Phẩm">
+                    <span th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Trạng Thái</label>
+                    <select class="form-select" th:field="*{trangThai}" id="trangThai">
+                        <option th:each="temp : ${TrangThais}" th:value="${temp}" th:text="${temp}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('trangThai')}" th:errors="*{trangThai}" style="color: red;"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

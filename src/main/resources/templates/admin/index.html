@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="bg-info text-center" style="width: 1300px; height: 669px;">
+        xin <span th:text="${NhanVien != null ? NhanVien.ten : 'NHÂN VIÊN'}" style="color: red;"></span>
+    </div>
+</div>
+</body>
+</html>

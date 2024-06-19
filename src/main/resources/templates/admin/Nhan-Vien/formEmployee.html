@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <h2 class="mb-3">Thêm Mới Danh Mục</h2>
+        <div style="width: 500px; margin-left: 400px;">
+            <form th:action="@{/nhan-vien/save}" th:object="${NhanVien}" method="POST">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="mb-3">
+                    <label class="form-label">Tên</label>
+                    <input type="text" th:field="*{ten}" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">email</label>
+                    <input type="text" th:field="*{email}" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mật Khẩu</label>
+                    <input type="text" th:field="*{mat_khau}" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('mat_khau')}" th:errors="*{mat_khau}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Địa Chỉ</label>
+                    <input type="text" th:field="*{dia_chi}" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('dia_chi')}" th:errors="*{dia_chi}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label>Vai Trò:</label>
+                    <div th:each="vaiTro : ${VaiTros}">
+                        <input type="checkbox" th:value="${vaiTro.id}" th:field="*{vaiTros}"/> <span
+                            th:text="${vaiTro.ten}"></span><br/>
+                    </div>
+                    <span th:if="${#fields.hasErrors('vaiTros')}" th:errors="*{vaiTros}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Trạng Thái</label>
+                    <input type="radio" th:field="*{trangThai}" value="Hoạt Động"/> Hoạt Động
+                    <input type="radio" th:field="*{trangThai}" value="Nghỉ Làm"/> Nghỉ Làm
+                    <span th:if="${#fields.hasErrors('trangThai')}" th:errors="*{trangThai}" style="color: red;"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

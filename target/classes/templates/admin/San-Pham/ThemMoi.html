@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="admin/fragments/Head :: head">
+</head>
+<body>
+<header th:replace="admin/fragments/Header :: header"></header>
+<div class="d-flex justify-content-between">
+    <aside th:replace="/admin/fragments/Menu :: menu"></aside>
+    <div class="text-center" style="width: 1300px; height: 669px;">
+        <h2 class="mb-3">Thêm Mới Sản Phẩm</h2>
+        <div style="width: 500px; margin-left: 400px;">
+            <form th:action="@{/save}" th:object="${SanPham}" method="POST">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="mb-3">
+                    <label for="tenSanPham" class="form-label">Tên Sản Phẩm</label>
+                    <input type="text" th:field="*{ten}" class="form-control" id="tenSanPham"
+                           placeholder="Tên Sản Phẩm">
+                    <span th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="gia" class="form-label">Giá</label>
+                    <input type="text" th:field="*{gia}" class="form-control" id="gia" placeholder="Giá">
+                    <span th:if="${#fields.hasErrors('gia')}" th:errors="*{gia}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="soLuong" class="form-label">Số Lượng</label>
+                    <input type="text" th:field="*{soLuong}" class="form-control" id="soLuong" placeholder="Số Lượng">
+                    <span th:if="${#fields.hasErrors('soLuong')}" th:errors="*{soLuong}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="moTa" class="form-label">Mô Tả</label>
+                    <input type="text" th:field="*{moTa}" class="form-control" id="moTa" placeholder="Mô Tả">
+                    <span th:if="${#fields.hasErrors('moTa')}" th:errors="*{moTa}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="danhMuc" class="form-label">Danh Mục</label>
+                    <select class="form-select" th:field="*{danhMuc}" id="danhMuc">
+                        <option th:each="danhMuc : ${DanhMucs}" th:value="${danhMuc.id}" th:text="${danhMuc.ten}">
+                            Danh Mục
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('danhMuc')}" th:errors="*{danhMuc}" style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Trạng Thái</label>
+                    <select class="form-select" th:field="*{trangThai}" id="trangThai">
+                        <option th:each="temp : ${TrangThais}" th:value="${temp}" th:text="${temp}">
+                        </option>
+                    </select>
+                    <span th:if="${#fields.hasErrors('trangThai')}" th:errors="*{trangThai}" style="color: red;"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
